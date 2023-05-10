@@ -81,7 +81,7 @@ def text_area_callback(spinner_placeholder):
 #    st.image("ai_app_logo.jpg", width=400)
 
 with st.columns(3)[1]:
-    st.image("ai_app_logo.jpg")
+    st.image("ai_app_logo.png")
 
 st.title("FKM GPT Demo")
 
@@ -94,20 +94,20 @@ st.markdown("<style>div[data-baseweb='select']{margin-top: 30px;}</style>", unsa
 
 setup_session_state()
 
-st.selectbox("Prompt:", list(prompts.keys()), key='prompt_choice', on_change=chg_prompt_callback)
+st.selectbox("Prompt Auswahl:", list(prompts.keys()), key='prompt_choice', on_change=chg_prompt_callback)
 
 with st.form("system_prompt_edit", clear_on_submit=False):
-    st.text_area("System Prompt", key='system_prompt_edit', 
+    st.text_area("System Prompt (muss nicht bearbeitet werden)", key='system_prompt_edit', 
                  value=prompts[st.session_state['prompt_choice']])
-    st.form_submit_button('Submit', on_click=system_prompt_edit_callback)
+    st.form_submit_button('Systemprompt ändern (optional)', on_click=system_prompt_edit_callback)
 
 chat_history = st.empty()
 spinner_placeholder = st.empty()
 update_chat_history(chat_history)
 
 with st.form("chat_window", clear_on_submit=True):
-    st.text_area("Type your message:", key='user_input')
-    st.form_submit_button('Submit', on_click=lambda: text_area_callback(spinner_placeholder))
+    st.text_area("Geben Sie Ihre Nachricht ein:", key='user_input')
+    st.form_submit_button('Abschicken', on_click=lambda: text_area_callback(spinner_placeholder))
 
 st.button('Reset Chat', on_click=reset_callback)
 
