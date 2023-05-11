@@ -15,8 +15,8 @@ prompts = {'Vorstandsvorsitzender': prompts.vorstandsvorsitzender,
            'Ingenieur': prompts.ingenieur,
            'Benutzerdefiniert': st.session_state['custom_system_prompt']}
 
-models = {"gpt-3.5-turbo":'GPT 3.5 Turbo',
-          "gpt-4": 'GPT-4 (langsamer)'}
+models = {'GPT 3.5 Turbo':"gpt-3.5-turbo",
+          'GPT-4 (langsamer)':"gpt-4"}
 
 def generate_response_test(prompt, model):
     """Generate a test response."""
