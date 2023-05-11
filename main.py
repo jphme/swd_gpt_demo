@@ -73,7 +73,7 @@ def text_area_callback(spinner_placeholder):
     st.session_state['chat_text'] += f"**You:**\n {st.session_state.user_input}\n\n"
 
     #with spinner_placeholder.spinner("Die KI generiert eine Antwort, bitte habe etwas Geduld..."):
-    spinner_placeholder.markdown('<i class="fas fa-spinner fa-spin"></i> Die KI generiert eine Antwort...', 
+    spinner_placeholder.markdown('<i class="fas fa-spinner fa-spin"></i> Die KI generiert eine Antwort, bitte habe etwas Geduld...', 
                                  unsafe_allow_html=True)
     ai_response = st.session_state['chain'].predict(input=st.session_state.user_input)
     spinner_placeholder.markdown("", unsafe_allow_html=True)
