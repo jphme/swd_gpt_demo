@@ -15,6 +15,9 @@ prompts = {'Vorstandsvorsitzender': prompts.vorstandsvorsitzender,
            'Ingenieur': prompts.ingenieur,
            'Benutzerdefiniert': st.session_state['custom_system_prompt']}
 
+models = {"gpt-3.5-turbo":'GPT 3.5 Turbo',
+          "gpt-4": 'GPT-4 (langsamer)'}
+
 def generate_response_test(prompt, model):
     """Generate a test response."""
     return "Hallo hier spricht die *AI* mit `code`"
@@ -40,6 +43,9 @@ def setup_session_state():
     if 'user_input' not in st.session_state:
         st.session_state['user_input'] = ""
 
+def chg_model_callback():
+    st.session_state['chain'].llm.model_name=st.session_state['model']
+        
 def chg_prompt_callback():
     """Update the prompt based on the user's selection."""
     if st.session_state['prompt_choice'] != 'Benutzerdefiniert':
@@ -94,8 +100,13 @@ st.markdown("<style>div[data-baseweb='select']{margin-top: 30px;}</style>", unsa
 
 setup_session_state()
 
-st.selectbox("Prompt Auswahl:", list(prompts.keys()), key='prompt_choice', on_change=chg_prompt_callback)
+left_co, right_co = st.columns(2)
+with left_co:
+    st.selectbox("Prompt Auswahl:", list(prompts.keys()), key='prompt_choice', on_change=chg_prompt_callback)
+with right_co:
+    st.selectbox("Modell Auswahl:", list(models.keys()), key='model', on_change=chg_model_callback)
 
+    
 with st.form("system_prompt_edit", clear_on_submit=False):
     st.text_area("System Prompt (muss nicht bearbeitet werden)", key='system_prompt_edit', 
                  value=prompts[st.session_state['prompt_choice']])
