@@ -29,11 +29,11 @@ def setup_session_state():
     if 'temperature' not in st.session_state:
         st.session_state['temperature'] = 0.5
     if 'model' not in st.session_state:
-        st.session_state['model'] = "gpt-3.5-turbo"
+        st.session_state['model'] = 'GPT 3.5 Turbo'
     if 'prompt_choice' not in st.session_state:
         st.session_state['prompt_choice'] = 'Projektmanager'
     if 'chain' not in st.session_state:
-        st.session_state['chain'] = get_chain(st.session_state['model'],
+        st.session_state['chain'] = get_chain(models[st.session_state['model']],
                                               st.session_state['temperature'],
                                               st.session_state['max_token'],
                                               prompts[st.session_state['prompt_choice']],
@@ -44,7 +44,7 @@ def setup_session_state():
         st.session_state['user_input'] = ""
 
 def chg_model_callback():
-    st.session_state['chain'].llm.model_name=st.session_state['model']
+    st.session_state['chain'].llm.model_name=models[st.session_state['model']]
         
 def chg_prompt_callback():
     """Update the prompt based on the user's selection."""
